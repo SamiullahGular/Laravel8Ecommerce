@@ -21,7 +21,7 @@
 		                		<div class="col-lg-9">
 		                				<div class="row">
 		                					<div class="col-sm-6">
-		                						<label>First Name *</label>
+		                						<label>First Name <span class="text-danger">*</span></label>
 		                						<input type="text" class="form-control" required>
 		                					</div><!-- End .col-sm-6 -->
 
