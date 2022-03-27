@@ -26,7 +26,7 @@
 		                					</div><!-- End .col-sm-6 -->
 
 		                					<div class="col-sm-6">
-		                						<label>Last Name *</label>
+		                						<label>Last Name <span class="text-danger">*</span></label>
 		                						<input type="text" class="form-control" required>
 		                					</div><!-- End .col-sm-6 -->
 		                				</div><!-- End .row -->
