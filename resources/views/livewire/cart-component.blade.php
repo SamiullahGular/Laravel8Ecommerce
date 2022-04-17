@@ -20,7 +20,6 @@
 		@php  $sub = 0;  $tot = 0; @endphp
 	
 		<!-- Shoping Cart -->
-		<form class="bg0 p-t-75 p-b-85">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -256,7 +255,7 @@
 							</div>
 							@endif
 
-							<a href="#" wire:click.prevent="checkout" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer" style="color:white">
+							<a href="{{ route('checkout') }}" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15" style="color:white">
 							Proceed to Checkout
 							</a>
 						</div>
@@ -270,6 +269,5 @@
 					</div>
 				</div>
 			</div>
-		</form>
 	</div>
 </div>

@@ -128,6 +128,12 @@ class CartComponent extends Component
     // Amount for checkout
     public function setAmountForCheckout()
     {
+        if(!Cart::instance('cart')->count() > 0)
+        {
+            session()->forget('checkout');
+            return;
+        }
+        
         if(session()->has('coupon'))
         {
             session()->put('checkout', [

@@ -1,75 +1,92 @@
-        
+<div>
 	<link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+	<style>
+		.input-inline{
+			display: inline;
+		}
+	</style>
 
-        <main class="main" style="margin-top: 85px;">
-            <nav aria-label="breadcrumb" class="breadcrumb-nav">
-                <div class="container">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/shop">Shop</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
-                    </ol>
-                </div><!-- End .container -->
-            </nav><!-- End .breadcrumb-nav -->
+        <main class="main" style="margin-top: 70px;">
+			<div class="container p-t-30 m-5">
+				<div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+					<a href="/" class="stext-109 cl8 hov-cl1 trans-04">
+						Home
+						<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+					</a>
+		
+					<a href="/shop" class="stext-109 cl8 hov-cl1 trans-04">
+						Shop
+						<i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+					</a>
+		
+					<span class="stext-109 cl4">
+						Checkout
+					</span>
+				</div>
+			</div>
+			<!-- End .breadcrumb-nav -->
 
             <div class="page-content">
             	<div class="checkout">
 	                <div class="container">
                     <h4 style="color: black; margin-bottom:10px;">BILLING DETAILS</h4>
-            			<form action="#">
+            			<form wire:submit.prevent="placeOrder"> {{-- form for submit the checkout --}}
 		                	<div class="row">
 		                		<div class="col-lg-9">
-		                				<div class="row">
-		                					<div class="col-sm-6">
-		                						<label>First Name <span class="text-danger">*</span></label>
-		                						<input type="text" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
+		                			<div class="row">
+		                				<div class="col-sm-6">
+		                					<label>First Name <span class="text-danger">*</span></label>
+		                					<input type="text" name="fname" placeholder="Your first name" class="form-control" wire:model="firstname">
+											@error('firstname')<span class="text-danger">{{ $message }}</span>@enderror
+		                				</div><!-- End .col-sm-6 -->
 
-		                					<div class="col-sm-6">
-		                						<label>Last Name <span class="text-danger">*</span></label>
-		                						<input type="text" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
-		                				</div><!-- End .row -->
+		                				<div class="col-sm-6">
+		                					<label>Last Name <span class="text-danger">*</span></label>
+		                					<input type="text" placeholder="Your last name" class="form-control" wire:model="lastname">
+											@error('lastname') <span class="text-danger">{{ $message }}</span>@enderror
+										</div><!-- End .col-sm-6 -->
+		                			</div><!-- End .row -->
 
-	            						<label>Company Name (Optional)</label>
-	            						<input type="text" class="form-control">
+	            					<label>Country <span class="text-danger">*</span></label>
+	            					<input type="text" name="country" placeholder="Your country" class="form-control" wire:model="country">
+									@error('country') <span class="text-danger">{{ $message }}</span>@enderror
+	            					
+									<label>Street address <span class="text-danger">*</span></label>
+	            					<input type="text" class="form-control m-3" placeholder="House number and Street name Line 1" wire:model="line1">
+	            					@error('line1') <span class="text-danger">{{ $message }}</span>@enderror
+									<input type="text" class="form-control m-3" placeholder="Appartments, suite, unit etc Line 2" wire:model="line2">
 
-	            						<label>Country *</label>
-	            						<input type="text" class="form-control" required>
+	            					<div class="row">
+		                				<div class="col-sm-6">
+		                					<label>Town / City <span class="text-danger">*</span></label>
+		                					<input type="text" name="city" placeholder="Your city" class="form-control" wire:model="city">
+											@error('city') <span class="text-danger">{{ $message }}</span> @enderror
+										</div><!-- End .col-sm-6 -->
 
-	            						<label>Street address *</label>
-	            						<input type="text" class="form-control m-3" placeholder="House number and Street name" required>
-	            						<input type="text" class="form-control m-3" placeholder="Appartments, suite, unit etc ..." required>
+		                				<div class="col-sm-6">
+		                					<label>Province <span class="text-danger">*</span></label>
+		                					<input type="text" name="province" placeholder="Your province" class="form-control" wire:model="province">
+											@error('province') <span class="text-danger">{{ $message }}</span>@enderror
+										</div><!-- End .col-sm-6 -->
+		                			</div><!-- End .row -->
 
-	            						<div class="row">
-		                					<div class="col-sm-6">
-		                						<label>Town / City *</label>
-		                						<input type="text" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
+		                			<div class="row">
+		                				<div class="col-sm-6">
+		                					<label>Postcode / ZIP <span class="text-danger">*</span></label>
+		                					<input type="text" placeholder="Zip code" class="form-control" wire:model="zipcode">
+											@error('zipcode') <span class="text-danger">{{ $message }}</span>@enderror
+										</div><!-- End .col-sm-6 -->
 
-		                					<div class="col-sm-6">
-		                						<label>State / County *</label>
-		                						<input type="text" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
-		                				</div><!-- End .row -->
+		                				<div class="col-sm-6">
+		                					<label>Phone <span class="text-danger">*</span></label>
+		                					<input type="tel" name="phone" placeholder="phone number" class="form-control" wire:model="mobile">
+											@error('mobile') <span class="text-danger">{{ $message }}</span>@enderror
+										</div><!-- End .col-sm-6 -->
+		                			</div><!-- End .row -->
 
-		                				<div class="row">
-		                					<div class="col-sm-6">
-		                						<label>Postcode / ZIP *</label>
-		                						<input type="text" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
-
-		                					<div class="col-sm-6">
-		                						<label>Phone *</label>
-		                						<input type="tel" class="form-control" required>
-		                					</div><!-- End .col-sm-6 -->
-		                				</div><!-- End .row -->
-
-	                					<label>Email address *</label>
-	        							<input type="email" class="form-control" required>
-
-	                					<label>Order notes (optional)</label>
-	        							<textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+	                				<label>Email address <span class="text-danger">*</span></label>
+	        						<input type="email" name="email" placeholder="Your email address" class="form-control" wire:model="email">
+									@error('email') <span class="text-danger">{{ $message }}</span>@enderror
 		                		</div><!-- End .col-lg-9 -->
 		                		<aside class="col-lg-3">
 		                			<div class="summary">
@@ -84,18 +101,18 @@
 		                					</thead>
 
 		                					<tbody>
+												@foreach (Cart::instance('cart')->content() as $item)
 		                						<tr>
-		                							<td><a href="#">Beige knitted elastic runner shoes</a></td>
-		                							<td>$84.00</td>
+		                							<td><a href="#">{{$item->name}}</a></td>
+		                							<td>${{ $item->price}}</td>
 		                						</tr>
+												@endforeach
 
-		                						<tr>
-		                							<td><a href="#">Blue utility pinafore denimdress</a></td>
-		                							<td>$76,00</td>
-		                						</tr>
 		                						<tr class="summary-subtotal">
 		                							<td>Subtotal:</td>
-		                							<td>$160.00</td>
+													@if(Session::has('checkout'))
+		                								<td>${{ Session::get('checkout')['subtotal'] }}</td>
+													@endif
 		                						</tr><!-- End .summary-subtotal -->
 		                						<tr>
 		                							<td>Shipping:</td>
@@ -103,52 +120,41 @@
 		                						</tr>
 		                						<tr class="summary-total">
 		                							<td>Total:</td>
-		                							<td>$160.00</td>
+													@if(Session::has('checkout'))
+		                								<td>${{ Session::get('checkout')['total'] }}</td>
+													@endif
 		                						</tr><!-- End .summary-total -->
 		                					</tbody>
 		                				</table><!-- End .table table-summary -->
 
 		                				<div class="accordion-summary" id="accordion-payment">
 										    <div class="card">
-										        <div class="card-header" id="heading-1">
+										        <div class="card-header">
 										            <h2 class="card-title">
-										                <a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-										                    Direct bank transfer
-										                </a>
-										            </h2>
-										        </div><!-- End .card-header -->
-										        <div id="collapse-1" class="collapse show" aria-labelledby="heading-1" data-parent="#accordion-payment">
-										            <div class="card-body">
-										                Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-										            </div><!-- End .card-body -->
-										        </div><!-- End .collapse -->
-										    </div><!-- End .card -->
-
-										    <div class="card">
-										        <div class="card-header" id="heading-2">
-										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-2" aria-expanded="false" aria-controls="collapse-2">
-										                    Check payments
-										                </a>
-										            </h2>
-										        </div><!-- End .card-header -->
-										        <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-payment">
-										            <div class="card-body">
-										                Ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. 
-										            </div><!-- End .card-body -->
-										        </div><!-- End .collapse -->
-										    </div><!-- End .card -->
-
-										    <div class="card">
-										        <div class="card-header" id="heading-3">
-										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
-										                    Cash on delivery
-										                </a>
+														<input type="radio" name="payment-method" value="cod" class="collapsed input-inline" data-toggle="collapse"
+														 href="#collapse-3" aria-expanded="false" aria-controls="collapse-3" wire:model="paymentmode"> 
+										    			Cash on delivery
 										            </h2>
 										        </div><!-- End .card-header -->
 										        <div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordion-payment">
-										            <div class="card-body">Quisque volutpat mattis eros. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. 
+										            <div class="card-body">
+														Order Now Pay on Delivery 
+										            </div><!-- End .card-body -->
+										        </div><!-- End .collapse -->
+										    </div><!-- End .card -->
+
+											<div class="card">
+										        <div class="card-header" id="heading-5">
+										            <h2 class="card-title">
+										                <input type="radio" name="payment-method" value="card" class="collapsed input-inline" data-toggle="collapse"
+														 href="#collapse-5" aria-expanded="false" aria-controls="collapse-5" wire:model="paymentmode">
+										                    Debit / Credit Card
+										                    <img src="{{ asset('assets/images/icons/icon-pay-01.png') }}" class="input-inline" alt="payments cards">
+										            </h2>
+										        </div><!-- End .card-header -->
+										        <div id="collapse-5" class="collapse" aria-labelledby="heading-5" data-parent="#accordion-payment">
+										            <div class="card-body">
+														There are many ways to checkout with credit card.
 										            </div><!-- End .card-body -->
 										        </div><!-- End .collapse -->
 										    </div><!-- End .card -->
@@ -156,37 +162,24 @@
 										    <div class="card">
 										        <div class="card-header" id="heading-4">
 										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-4" aria-expanded="false" aria-controls="collapse-4">
+										                <input type="radio" name="payment-method" value="paypal" class="collapsed input-inline" data-toggle="collapse"
+														 href="#collapse-4" aria-expanded="false" aria-controls="collapse-4" wire:model="paymentmode">
 										                    PayPal <small class="float-right paypal-link">What is PayPal?</small>
 										                </a>
 										            </h2>
 										        </div><!-- End .card-header -->
 										        <div id="collapse-4" class="collapse" aria-labelledby="heading-4" data-parent="#accordion-payment">
 										            <div class="card-body">
-										                Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum.
+														<p>You can pay with your credit card if you don't have a paypal account</p>
 										            </div><!-- End .card-body -->
 										        </div><!-- End .collapse -->
-										    </div><!-- End .card -->
-
-										    <div class="card">
-										        <div class="card-header" id="heading-5">
-										            <h2 class="card-title">
-										                <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-5" aria-expanded="false" aria-controls="collapse-5">
-										                    Credit Card (Stripe)
-										                    <img src="{{ asset('assets/images/icons/icon-pay-01.png') }}" alt="payments cards">
-										                </a>
-										            </h2>
-										        </div><!-- End .card-header -->
-										        <div id="collapse-5" class="collapse" aria-labelledby="heading-5" data-parent="#accordion-payment">
-										            <div class="card-body"> Donec nec justo eget felis facilisis fermentum.Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Lorem ipsum dolor sit ame.
-										            </div><!-- End .card-body -->
-										        </div><!-- End .collapse -->
+												@error('paymentmode') <span class="text-danger" >{{ $message }}</span> @enderror
 										    </div><!-- End .card -->
 										</div><!-- End .accordion -->
+										
 
-		                				<button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
-		                					<span class="btn-text">Place Order</span>
-		                					<span class="btn-hover-text">Proceed to Checkout</span>
+		                				<button type="submit" class="btn btn-outline-success">
+		                					Place Order
 		                				</button>
 		                			</div><!-- End .summary -->
 		                		</aside><!-- End .col-lg-3 -->
@@ -196,3 +189,5 @@
                 </div><!-- End .checkout -->
             </div><!-- End .page-content -->
         </main><!-- End .main -->
+</div>
+	
