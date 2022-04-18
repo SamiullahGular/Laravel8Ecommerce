@@ -193,10 +193,47 @@
 		                								<td>${{ Session::get('checkout')['total'] }}</td>
 													@endif
 		                						</tr><!-- End .summary-total -->
+												<tr>
+													<td style="font-size: 20px; color: black;">Payment Methods</td>
+												</tr>
 		                					</tbody>
 		                				</table><!-- End .table table-summary -->
 
+										
 		                				<div class="accordion-summary" id="accordion-payment">
+											@if(Session::has('stripe_error'))
+												<div class="alert alert-danger" role="alert">{{ Session::get('stripe_error')}}</div>
+											@endif
+											@if($paymentmode == 'card')
+												<div class="row">
+													<div class="col-sm-6">
+														<label class="text-dark">Card Number <span class="text-danger">*</span></label>
+														<input type="text" name="card-no" placeholder="card number" class="form-control" wire:model="card_no">
+														@error('card_no') <span class="text-danger">{{ $message }}</span> @enderror
+													</div><!-- End .col-sm-6 -->
+		
+													<div class="col-sm-6">
+														<label class="text-dark">Expiry Month <span class="text-danger">*</span></label>
+														<input type="text" name="exp-month" placeholder="MM" class="form-control" wire:model="exp_month">
+														@error('exp_month') <span class="text-danger">{{ $message }}</span>@enderror
+													</div><!-- End .col-sm-6 -->
+												</div><!-- End .row -->
+
+												<div class="row">
+													<div class="col-sm-6">
+														<label class="text-dark">Expiry Year <span class="text-danger">*</span></label>
+														<input type="text" name="exp-year" placeholder="YYYY" class="form-control" wire:model="exp_year">
+														@error('exp_year') <span class="text-danger">{{ $message }}</span> @enderror
+													</div><!-- End .col-sm-6 -->
+		
+													<div class="col-sm-6">
+														<label class="text-dark">CVC <span class="text-danger">*</span></label>
+														<input type="password" name="cvc" placeholder="cvc" class="form-control" wire:model="cvc">
+														@error('cvc') <span class="text-danger">{{ $message }}</span>@enderror
+													</div><!-- End .col-sm-6 -->
+												</div><!-- End .row -->
+											@endif
+											{{-- End of payment method --}}
 										    <div class="card">
 										        <div class="card-header">
 										            <h2 class="card-title">

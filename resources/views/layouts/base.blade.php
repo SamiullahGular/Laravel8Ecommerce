@@ -324,12 +324,11 @@
 				<ul class="header-cart-wrapitem w-full">
 					<li class="header-cart-item flex-w flex-t m-b-12">
 						<div class="header-cart-item-txt p-t-8">
-							<a href="{{ route('admin.dashboard') }}" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+							<a href="{{ route('user.dashboard') }}" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
 								User Dashboard
 							</a>
 						</div>
 					</li>
-					
 				</ul>
 				
 				<div class="w-full">
