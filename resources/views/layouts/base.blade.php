@@ -291,6 +291,12 @@
 
 					<li class="header-cart-item flex-w flex-t m-b-12">
 						<div class="header-cart-item-txt p-t-8">
+							<a href="{{ route('admin.orders') }}" class="header-cart-item-name m-b-18 hov-cl1 trans-04">All Orders</a>
+						</div>
+					</li>
+
+					<li class="header-cart-item flex-w flex-t m-b-12">
+						<div class="header-cart-item-txt p-t-8">
 							<a href="{{ route('admin.contact') }}" class="header-cart-item-name m-b-18 hov-cl1 trans-04">Contact Messages</a>
 						</div>
 					</li>

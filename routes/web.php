@@ -15,6 +15,8 @@ use App\Http\Livewire\Admin\AdminEditCouponsComponent;
 use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\AdminHomeSliderComponent;
+use App\Http\Livewire\Admin\AdminOrderComponent;
+use App\Http\Livewire\Admin\AdminOrderDetailComponent;
 use App\Http\Livewire\Admin\AdminProductsComponent;
 use App\Http\Livewire\Admin\AdminSaleComponent;
 use App\Http\Livewire\CartComponent;
@@ -95,6 +97,9 @@ Route::middleware(['auth:sanctum', 'verified','authadmin'])->group(function(){
     Route::get('/admin/coupons', AdminCouponsComponent::class)->name('admin.coupons');
     Route::get('/admin/coupon/add', AdminAddCouponsComponent::class)->name('admin.addCoupon');
     Route::get('/admin/coupon/edit/{coupon_id}', AdminEditCouponsComponent::class)->name('admin.editCouponn');
+
+    Route::get('/admin/orders', AdminOrderComponent::class)->name('admin.orders');
+    Route::get('/admin/order/detail/{order_id}', AdminOrderDetailComponent::class)->name('admin.orderdetail');
 });
 
 Route::get('/sami', [TestController::class, 'sami']);
