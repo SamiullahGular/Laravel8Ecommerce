@@ -87,7 +87,76 @@
 	                				<label>Email address <span class="text-danger">*</span></label>
 	        						<input type="email" name="email" placeholder="Your email address" class="form-control" wire:model="email">
 									@error('email') <span class="text-danger">{{ $message }}</span>@enderror
-		                		</div><!-- End .col-lg-9 -->
+		                		
+									<hr>
+									<label for="shipping_different" class="form-label">
+										<input type="checkbox" name="shipping_different" value="1" class="input-inline" wire:model="ship_to_different"> &nbsp;
+										Ship to a different address?
+									</label>
+
+								</div><!-- End .col-lg-9 -->
+
+								@if($ship_to_different)
+									<div class="col-lg-9 mt-3">
+										<h4 style="color: black; margin-bottom:10px;">SHIPPING ADDRESS</h4>
+										<div class="row">
+											<div class="col-sm-6">
+												<label>First Name <span class="text-danger">*</span></label>
+												<input type="text" name="s_fname" placeholder="Your first name" class="form-control" wire:model="s_firstname">
+												@error('s_firstname')<span class="text-danger">{{ $message }}</span>@enderror
+											</div><!-- End .col-sm-6 -->
+
+											<div class="col-sm-6">
+												<label>Last Name <span class="text-danger">*</span></label>
+												<input type="text" placeholder="Your last name" class="form-control" wire:model="s_lastname">
+												@error('s_lastname') <span class="text-danger">{{ $message }}</span>@enderror
+											</div><!-- End .col-sm-6 -->
+										</div><!-- End .row -->
+
+										<label>Country <span class="text-danger">*</span></label>
+										<input type="text" name="s_country" placeholder="Your country" class="form-control" wire:model="s_country">
+										@error('s_country') <span class="text-danger">{{ $message }}</span>@enderror
+										
+										<label>Street address <span class="text-danger">*</span></label>
+										<input type="text" class="form-control m-3" placeholder="House number and Street name Line 1" wire:model="s_line1">
+										@error('s_line1') <span class="text-danger">{{ $message }}</span>@enderror
+										<input type="text" class="form-control m-3" placeholder="Appartments, suite, unit etc Line 2" wire:model="s_line2">
+
+										<div class="row">
+											<div class="col-sm-6">
+												<label>Town / City <span class="text-danger">*</span></label>
+												<input type="text" name="s_city" placeholder="Your city" class="form-control" wire:model="s_city">
+												@error('s_city') <span class="text-danger">{{ $message }}</span> @enderror
+											</div><!-- End .col-sm-6 -->
+
+											<div class="col-sm-6">
+												<label>Province <span class="text-danger">*</span></label>
+												<input type="text" name="s_province" placeholder="Your province" class="form-control" wire:model="s_province">
+												@error('s_province') <span class="text-danger">{{ $message }}</span>@enderror
+											</div><!-- End .col-sm-6 -->
+										</div><!-- End .row -->
+
+										<div class="row">
+											<div class="col-sm-6">
+												<label>Postcode / ZIP <span class="text-danger">*</span></label>
+												<input type="text" placeholder="Zip code" class="form-control" wire:model="s_zipcode">
+												@error('s_zipcode') <span class="text-danger">{{ $message }}</span>@enderror
+											</div><!-- End .col-sm-6 -->
+
+											<div class="col-sm-6">
+												<label>Phone <span class="text-danger">*</span></label>
+												<input type="tel" name="s_phone" placeholder="phone number" class="form-control" wire:model="s_mobile">
+												@error('s_mobile') <span class="text-danger">{{ $message }}</span>@enderror
+											</div><!-- End .col-sm-6 -->
+										</div><!-- End .row -->
+
+										<label>Email address <span class="text-danger">*</span></label>
+										<input type="email" name="s_email" placeholder="Your email address" class="form-control" wire:model="s_email">
+										@error('s_email') <span class="text-danger">{{ $message }}</span>@enderror
+
+									</div><!-- End .col-lg-9 -->
+								@endif
+								
 		                		<aside class="col-lg-3">
 		                			<div class="summary">
 		                				<h3 class="summary-title">Your Order</h3><!-- End .summary-title -->

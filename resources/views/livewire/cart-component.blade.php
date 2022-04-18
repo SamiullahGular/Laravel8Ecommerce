@@ -261,9 +261,9 @@
 						</div>
 						@else
 						<div class="text-center" style="padding: 30px 0;">
-							<h1>Your cart is empty!</h1>
-							<p>Add items to is now</p>
-							<a href="/shop" class="btn btn-success">Shop now</a>
+							<h1 class="m-2">Your cart is empty!</h1>
+							<p class="m-2">Add items to is now</p>
+							<a href="/shop" class="btn btn-success m-1">Shop now</a>
 						</div>
 						@endif
 					</div>
