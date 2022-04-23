@@ -53,7 +53,7 @@
 							</span>
 
 							<p class="stext-115 cl6 size-213 p-t-18">
-								Coza Store Center 8th floor, 379 Hudson St, New York, NY 10018 US
+								{{ $setting->address }}
 							</p>
 						</div>
 					</div>
@@ -69,7 +69,8 @@
 							</span>
 
 							<p class="stext-115 cl1 size-213 p-t-18">
-								+1 800 1236879
+								{{$setting->phone}} &nbsp;
+								{{$setting->phone2}}
 							</p>
 						</div>
 					</div>
@@ -85,7 +86,7 @@
 							</span>
 
 							<p class="stext-115 cl1 size-213 p-t-18">
-								contact@example.com
+								{{$setting->email}}
 							</p>
 						</div>
 					</div>
@@ -96,9 +97,8 @@
 	
 	
 	<!-- Map -->
-	<div class="map">
-		<div class="size-303" id="google_map" data-map-x="40.691446" data-map-y="-73.886787" data-pin="{{ asset('assets/images/icons/pin.png') }}" data-scrollwhell="0" data-draggable="1" data-zoom="11"></div>
+	<div class="map container">
+		<iframe src="{{ $setting->map }}" width="100%" height="460" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 	</div>
-
 </div>  
    

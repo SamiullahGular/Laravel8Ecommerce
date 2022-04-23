@@ -19,6 +19,7 @@ use App\Http\Livewire\Admin\AdminOrderComponent;
 use App\Http\Livewire\Admin\AdminOrderDetailComponent;
 use App\Http\Livewire\Admin\AdminProductsComponent;
 use App\Http\Livewire\Admin\AdminSaleComponent;
+use App\Http\Livewire\Admin\AdminSettingsComponent;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\CheckoutComponent;
@@ -28,7 +29,11 @@ use App\Http\Livewire\HomeComponent;
 use App\Http\Livewire\SearchComponent;
 use App\Http\Livewire\ShopComponent;
 use App\Http\Livewire\ThankYouComponent;
+use App\Http\Livewire\User\UserChangePasswordComponent;
 use App\Http\Livewire\User\UserDashboardComponent;
+use App\Http\Livewire\User\UserOrderComponent;
+use App\Http\Livewire\User\UserOrderDetailComponent;
+use App\Http\Livewire\User\UserReviewComponent;
 use App\Http\Livewire\WishlistComponent;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -77,6 +82,10 @@ Route::get('/thank-you', ThankYouComponent::class)->name('thankyou');
 // For users and customer
 Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/user/dashboard', UserDashboardComponent::class)->name('user.dashboard');
+    Route::get('/user/orders', UserOrderComponent::class)->name('user.orders');
+    Route::get('/users/orderdetail/{order_id}', UserOrderDetailComponent::class)->name('user.orderdetail');
+    Route::get('/user/change-password', UserChangePasswordComponent::class)->name('user.changepassword');
+    Route::get('/user/review/{order_item_id}', UserReviewComponent::class)->name('user.review');
 });
 
 // For Admin
@@ -100,6 +109,7 @@ Route::middleware(['auth:sanctum', 'verified','authadmin'])->group(function(){
 
     Route::get('/admin/orders', AdminOrderComponent::class)->name('admin.orders');
     Route::get('/admin/order/detail/{order_id}', AdminOrderDetailComponent::class)->name('admin.orderdetail');
+    Route::get('/admin/settings', AdminSettingsComponent::class)->name('admin.settings');
 });
 
 Route::get('/sami', [TestController::class, 'sami']);

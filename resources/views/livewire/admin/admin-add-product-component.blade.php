@@ -107,6 +107,17 @@
                                     <img src="{{ $image->temporaryUrl() }}" alt="$name" width="120px">
                                 @endif
                             </div>
+
+                            <div class="form-group">
+                                <label for="images" class="form-label">Product Gallery</label>
+                                <input type="file" class="form-control" wire:model="images" multiple>
+                                @error('images') <p class="text-danger">{{ $message }}</p> @enderror
+                                @if($images)
+                                    @foreach($images as $image)
+                                        <img src="{{ $image->temporaryUrl() }}" alt="$name" width="120px">
+                                    @endforeach
+                                @endif
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary js-add-alert col-10" style="margin-left: 85px;">Submit</button>

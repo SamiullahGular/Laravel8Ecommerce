@@ -24,6 +24,7 @@ class AdminAddProductComponent extends Component
     public $quantity;
     public $image;
     public $category_id;
+    public $images;
 
     public function mount()
     {
@@ -81,6 +82,24 @@ class AdminAddProductComponent extends Component
 
         $imageName = Carbon::now()->timestamp. '.'. $this->image->extension();
         $this->image->storeAs('images', $imageName);
+
+        if($this->images)
+        {
+            $imagesName ='';
+            foreach($this->images as $key=>$image)
+            {
+                $imgName = Carbon::now()->timestamp. $key.'.'. $image->extension();
+                $image->storeAs('images', $imgName);
+                if($imagesName == '')
+                {
+                    $imagesName = $imgName.',';
+                } else {
+                    $imagesName = $imagesName.",". $imgName;
+                }
+                
+            }
+            $product->images = $imagesName;
+        }
 
         $product->image = $imageName;
         $product->category_id = $this->category_id;

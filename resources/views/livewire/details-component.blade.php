@@ -24,7 +24,7 @@
 			<div class="row">
 				<div class="col-md-6 col-lg-7 p-b-30">
 					<div class="p-l-25 p-r-30 p-lr-0-lg">
-						<div class="wrap-slick3 flex-sb flex-w">
+						<div class="wrap-slick3 flex-sb flex-w" wire:ignore>
 							<div class="wrap-slick3-dots"></div>
 							<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
@@ -38,35 +38,48 @@
 										</a>
 									</div>
 								</div>
+								@php
+									$images = explode(',', $single_product->images)	
+								@endphp
+								@foreach($images as $image)
+									<div class="item-slick3" data-thumb="{{ asset('assets/images')}}/{{$image}}">
+										<div class="wrap-pic-w pos-relative">
+											<img src="{{ asset('assets/images')}}/{{$image}}" alt="IMG-PRODUCT">
 
-								<div class="item-slick3" data-thumb="{{ asset('assets/images/product-detail-02.jpg') }}">
-									<div class="wrap-pic-w pos-relative">
-										<img src="{{ asset('assets/images/product-detail-02.jpg') }}" alt="IMG-PRODUCT">
-
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{ asset('assets/images/product-detail-02.jpg') }}">
-											<i class="fa fa-expand"></i>
-										</a>
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{ asset('assets/images')}}/{{$image}}">
+												<i class="fa fa-expand"></i>
+											</a>
+										</div>
 									</div>
-								</div>
-
-								<div class="item-slick3" data-thumb="{{ asset('assets/images')}}/{{ $single_product->image }}">
-									<div class="wrap-pic-w pos-relative">
-										<img src="{{ asset('assets/images')}}/{{$single_product->image}}" alt="IMG-PRODUCT">
-
-										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="{{ asset('assets/images')}}/{{ $single_product->image }}">
-											<i class="fa fa-expand"></i>
-										</a>
-									</div>
-								</div>
+								@endforeach
 							</div>
 						</div>
 					</div>
 				</div>
 					
+				@php
+					$avgrating = 0;	
+				@endphp
 				<div class="col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
+						<span class="fs-18 cl11">
+							@foreach($single_product->orderItems->where('rstatus', 1) as $orderItem)
+								@php
+									$avgrating = $avgrating + $orderItem->review->rating;	
+								@endphp
+							@endforeach
+
+							@for($i=1; $i<=5 ;$i++)
+								@if($i <= $avgrating)
+									<i class="zmdi zmdi-star"></i>
+								@else
+									<i class="zmdi zmdi-star-outline"></i>
+								@endif
+							@endfor
+						</span>
+						<p style="display: inline">( {{$single_product->orderItems->where('rstatus', 1)->count() }} reviews)</p>
 						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-							{{$single_product->name}}
+							{{$single_product->name}} &nbsp;
 						</h4>
 						@if($single_product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
 							<span class="mtext-106 cl2">
@@ -86,7 +99,7 @@
 						</p>
 						
 						<!--  -->
-						<div class="p-t-33">
+						<div class="p-t-33" wire:ignore>
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-203 flex-c-m respon6">
 									Size
@@ -190,7 +203,7 @@
 						</li>
 
 						<li class="nav-item p-b-10">
-							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
+							<a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews ({{$single_product->orderItems->where('rstatus', 1)->count()}})</a>
 						</li>
 					</ul>
 
@@ -270,78 +283,37 @@
 								<div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
 									<div class="p-b-30 m-lr-15-sm">
 										<!-- Review -->
+										@foreach($single_product->orderItems->where('rstatus', 1) as $orderItem)
 										<div class="flex-w flex-t p-b-68">
 											<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-												<img src="{{ asset('assets/images/avatar-01.jpg') }}" alt="A') }}VATAR">
+												<img src="{{ asset('assets/images/users_images')}}/{{$orderItem->order->user->profile_photo_path}}" alt="A') }}VATAR">
 											</div>
 
 											<div class="size-207">
 												<div class="flex-w flex-sb-m p-b-17">
 													<span class="mtext-107 cl2 p-r-20">
-														Ariana Grande
+														{{$orderItem->order->user->name }} &nbsp;
+														<p>{{ Carbon\Carbon::parse($orderItem->review->created_at)->format('d F Y g:i A') }}</p>
 													</span>
 
 													<span class="fs-18 cl11">
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star-half"></i>
+														@for($i=1 ; $i<=5 ;$i++)
+															@if($i <= $orderItem->review->rating)
+																<i class="zmdi zmdi-star"></i>
+															@else
+																<i class="zmdi zmdi-star-outline"></i>
+															@endif
+														@endfor
 													</span>
 												</div>
 
 												<p class="stext-102 cl6">
-													Quod autem in homine praestantissimum atque optimum est, id deseruit. Apud ceteros autem philosophos
+													{{ $orderItem->review->comment }}
 												</p>
 											</div>
 										</div>
-										
+										@endforeach
 										<!-- Add review -->
-										<form class="w-full">
-											<h5 class="mtext-108 cl2 p-b-7">
-												Add a review
-											</h5>
-
-											<p class="stext-102 cl6">
-												Your email address will not be published. Required fields are marked *
-											</p>
-
-											<div class="flex-w flex-m p-t-50 p-b-23">
-												<span class="stext-102 cl3 m-r-16">
-													Your Rating
-												</span>
-
-												<span class="wrap-rating fs-18 cl11 pointer">
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<input class="dis-none" type="number" name="rating">
-												</span>
-											</div>
-
-											<div class="row p-b-25">
-												<div class="col-12 p-b-5">
-													<label class="stext-102 cl3" for="review">Your review</label>
-													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
-												</div>
-
-												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="name">Name</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="name">
-												</div>
-
-												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="email">Email</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="email">
-												</div>
-											</div>
-
-											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
-												Submit
-											</button>
-										</form>
 									</div>
 								</div>
 							</div>
@@ -353,18 +325,18 @@
 
 		<div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
 			<span class="stext-107 cl6 p-lr-25">
-				SKU: JAK-01
+				SKU: {{ $single_product->SKU }}
 			</span>
 
 			<span class="stext-107 cl6 p-lr-25">
-				Categories: Jacket, Men
+				Categories: {{ $single_product->category->name }}
 			</span>
 		</div>
 	</section>
 
 
 	<!-- Related Products -->
-	<section class="sec-relate-product bg0 p-t-45 p-b-105">
+	<section class="sec-relate-product bg0 p-t-45 p-b-105" wire:ignore>
 		<div class="container">
 			<div class="p-b-45">
 				<h3 class="ltext-106 cl5 txt-center">

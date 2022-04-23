@@ -66,12 +66,12 @@
 
 <script>
     /*------------------ Alert for Delete product --------------------- */
-	// $('.js-delete-alert-pro').each(function(){
-	// 	var nameProduct = $(this).parent().parent().find('.js-name-product').html();
-	// 	$(this).on('click', function(){
-	// 		swal(nameProduct, "has been deleted successfully !", "success");
-	// 	});
-	// });
+	$('.js-delete-alert-pro').each(function(){
+		var nameProduct = $(this).parent().parent().find('.js-name-product').html();
+		$(this).on('click', function(){
+			swal(nameProduct, "has been deleted successfully !", "success");
+		});
+	});
 </script>
 
 

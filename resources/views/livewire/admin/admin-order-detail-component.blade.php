@@ -1,17 +1,42 @@
 <div class="container-fluid p-5 admin-con">
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <div class="card mt-3">
                 <div class="card-header">
                     <div class="row">
                         <div class="card-title col-6">
-                            Order Item
+                            Order Detail
                         </div>
 
                         <div class="col-6">
                             <a href="{{route('admin.orders')}}" class="btn btn-success btn-rounded cat-button">All Orders</a>
                         </div>
                     </div>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>Order ID</th>
+                            <td>{{ $order->id }}</td>
+                            <th>Order Date</th>
+                            <td>{{ $order->created_at }}</td>
+                            <th>Status</th>
+                            <td>{{ $order->status}}</td>
+                            @if($order->status == 'delivered')
+                                <th>Delivery Date</th>
+                                <td>{{ $order->delivered_date }}</td>
+                            @elseif($order->status == 'canceled')
+                                <th>Cancellation Date</th>
+                                <td>{{ $order->canceled_date }}</td>
+                            @endif
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header">
+                    Order Item
                 </div>
                 <div class="card-body">
                     <div class="row">

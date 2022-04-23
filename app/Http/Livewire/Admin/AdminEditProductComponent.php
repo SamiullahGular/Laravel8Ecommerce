@@ -26,6 +26,8 @@ class AdminEditProductComponent extends Component
     public $category_id;
     public $product_id;
     public $new_image;
+    public $images;
+    public $old_images;
 
     public function mount($product_slug)
     {
@@ -43,6 +45,7 @@ class AdminEditProductComponent extends Component
         $this->image = $product->image;
         $this->category_id = $product->category_id;
         $this->product_id = $product->id;
+        $this->old_images = $product->images;
     }
     
     public function generateSlug()
@@ -71,7 +74,7 @@ class AdminEditProductComponent extends Component
     {
         $this->validate([
             'name' => 'required',
-            'slug' => 'required|unique:products',
+            'slug' => 'required',
             'short_description' => 'required',
             'description' => 'required',
             'regular_price' => 'required|numeric',
@@ -101,6 +104,25 @@ class AdminEditProductComponent extends Component
             $product->image = $imageName;
             unlink($old_image);
         }
+
+        if($this->images)
+        {
+            $imagesName ='';
+            foreach($this->images as $key=>$image)
+            {
+                $imgName = Carbon::now()->timestamp. $key.'.'. $image->extension();
+                $image->storeAs('images', $imgName);
+                if($imagesName == '')
+                {
+                    $imagesName = $imgName;
+                } else {
+                    $imagesName = $imagesName.",". $imgName;
+                }
+                
+            }
+            $product->images = $imagesName;
+        }
+
         $product->category_id = $this->category_id;
         $product->save();
 

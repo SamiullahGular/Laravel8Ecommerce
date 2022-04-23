@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Contact as Con;
+use App\Models\Setting;
 
 class Contact extends Component
 {
@@ -39,6 +40,7 @@ class Contact extends Component
 
     public function render()
     {
-        return view('livewire.contact')->layout('layouts.base');
+        $setting = Setting::find(1);
+        return view('livewire.contact', ['setting'=> $setting])->layout('layouts.base');
     }
 }

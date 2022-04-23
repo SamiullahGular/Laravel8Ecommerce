@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\OrderMail;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Shipping;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Cart;
 use Exception;
+use Illuminate\Support\Facades\Mail;
 use Stripe;
 
 class CheckoutComponent extends Component
@@ -88,6 +90,7 @@ class CheckoutComponent extends Component
         }
     }
 
+    //**************** place order  ****************/
     public function placeOrder()
     {
         $this->validate([
@@ -160,6 +163,7 @@ class CheckoutComponent extends Component
             $shipping->country = $this->s_country;
             $shipping->zipcode = $this->s_zipcode;
             $shipping->save();
+
         }
 
         if($this->paymentmode == 'cod')
@@ -232,6 +236,8 @@ class CheckoutComponent extends Component
                 $this->thankyou = 0;
             }
         }
+
+        $this->sendOrderConfirmation($order);
     }
 
     public function resetCard()
@@ -252,6 +258,13 @@ class CheckoutComponent extends Component
         $transaction->save();
     }
 
+    // sending order confirmation email
+    public function sendOrderConfirmation($order)
+    {
+        Mail::to($order->email)->send(new OrderMail($order));
+    }
+
+    // For authentication user for checkout
     public function verifyForCheckout()
     {
         if(!Auth::check())
